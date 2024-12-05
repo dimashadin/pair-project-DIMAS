@@ -104,6 +104,73 @@ class Controller {
       console.log(error);
     }
   }
+
+  static async addForm(req,res){
+    try {
+        let data = await Post.findAll({
+            include:{
+                model:Profile
+            }
+        })
+        // res.send(data)
+        res.render('formAddPost', {data})
+        
+    } catch (error) {
+        res.send(error)
+        // console.log(error);  
+    }
+  }
+
+  static async postAdd(req,res){
+    try {
+        // console.log(req.body);
+
+        await Post.create(req.body)
+
+        res.redirect('/Post')
+        
+        
+    } catch (error) {
+        res.send(error)
+        console.log(error);
+        
+    }
+  }
+
+  static async showEditForm(req,res){
+    try {
+        let {id} = req.params
+        let data = await Post.findByPk(+id, {
+            include: {
+              model: Profile
+            }
+          });
+        //   res.send(data)
+          
+
+
+        res.render('editForm', {data})
+        
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+        
+    }
+  }
+
+  static async postEditForm(req,res){
+    try {
+        // console.log(req.body);
+        
+        let {id} = req.params
+
+        
+        
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
+  }
 }
 
 module.exports = Controller;

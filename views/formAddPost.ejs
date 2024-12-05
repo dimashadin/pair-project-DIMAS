@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: black;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD NEW POST</title>
+
+    <%- include('./components/script') %>
+</head>
+<body>
+    <%- include('./components/navbar') %>
+
+    <div style="display: flex; justify-content: center; font-size: 50px;">
+        <p>Add New Post</p>
+    </div>
+
+    <form action="/Post/add" method="post">
+
+        <div style="display: flex; justify-content: center;margin-top: 15px;">
+    
+            
+            <div>
+    
+                <label class="form-control max-w-sm">
+                    <div class="label">
+                      <span class="label-text">Select Image</span>
+                    </div>
+                    <input name="imgUrl" type="file" class="input" />
+                  </label>
+    
+                <label class="form-control w-96">
+                    <div class="label">
+                      <span class="label-text">Title</span>
+                    </div>
+                    <input name="title" type="text"  class="input" />
+                  </label>
+    
+                  <label class="form-control sm:w-96">
+                    <div class="label">
+                      <span class="label-text">Description</span>
+                    </div>
+                    <textarea name="description" class="textarea" ></textarea>
+                  </label>
+
+                  <div class="form-control w-96">
+                    <label class="label" >Profile</label>
+                    <select name="ProfileId" class="select" >
+                        <option  value=""></option>
+                        <% data.forEach(el => { %>
+                            <option value="<%= el.Profile.id %>"><%= el.Profile.username %></option>
+                        <% }) %>
+                     
+                    
+                    </select>
+                  </div>
+    
+                  <button style="margin-top: 15px;" type="submit" class="btn btn-outline btn-success">Add Post</button>
+            </div>
+          
+    
+        </div>
+
+
+    </form>
+
+    
+</body>
+</html>
