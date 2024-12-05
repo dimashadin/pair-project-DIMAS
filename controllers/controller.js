@@ -13,15 +13,6 @@ class Controller {
     static async showAllPost(req, res){
         try {
 
-            // let data = await Post.findAll({
-            //     include:{
-            //         model: PostTag,
-            //         include:{
-            //             model:Tag
-            //         }
-            //     }
-            // })
-
             let data = await Profile.findAll({
                 include:{
                     model: Post,
@@ -34,18 +25,42 @@ class Controller {
                 }
             })
 
-
-            // let profile = await Profile.findAll()
             // res.send(data)
             
             res.render('Post', {data})
             
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             res.send(error)
         }
     }
 
+    static async showProfile(req,res){
+        try {
+            let {id} = req.params
+
+            let data = await Profile.findByPk(+id, {
+                include:{
+                    model: Post,
+                    include:{
+                        model:PostTag,
+                        include:{
+                            model:Tag
+                        }
+                    }
+                }
+            })
+            // res.send(data)
+            // console.log(data);
+            
+            
+
+            res.render('ProfileById', {data})
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
 
 
 }

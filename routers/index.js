@@ -7,6 +7,8 @@ router.get('/', Controller.showHome)
 
 router.get('/Post', Controller.showAllPost)
 
+router.get ('/Profile/:id', Controller.showProfile)
+
 
 
 module.exports = router
