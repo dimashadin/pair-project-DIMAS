@@ -1,0 +1,33 @@
+B
+
+npx sequelize model:create --name User --attributes firstName:string,lastName:string,gender:string
+
+=== one to one ===
+
+npx sequelize model:create --name Profile --attributes username:string,email:string,password:string,role:string,UserId:integer
+
+== one to many ===
+
+npx sequelize model:create --name Post --attributes title:string,description:string,imgUrl:string,ProfileId:integer
+
+=== many to many ===
+
+npx sequelize model:create --name Tag --attributes hashTag:string
+
+=== many to many ===
+
+npx sequelize model:create --name PostTag --attributes PostId:integer,TagId:integer
+
+npx sequelize db:migrate
+
+npx sequelize seed:create --name seedUser
+
+npx sequelize seed:create --name seedProfile
+
+npx sequelize seed:create --name seedPost
+
+npx sequelize seed:create --name seedTag
+
+npx sequelize seed:create --name seedPostTag
+
+npx sequelize db:seed:all
