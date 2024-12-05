@@ -9,6 +9,12 @@
 </head>
 
 <body>
+  <% if (RoleError) { %>
+    <div class="alert alert-danger">
+        <%= RoleError %>  
+    </div>
+<% } %>
+
 
   <%- include('./components/navbar') %>
 
