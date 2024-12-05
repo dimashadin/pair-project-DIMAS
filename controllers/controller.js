@@ -62,7 +62,66 @@ class Controller {
         }
     }
 
+    static async showTag(req,res){
+        try {
+            let {id} = req.params 
 
+            let data = await Tag.findByPk(+id, {
+                include:{
+                    model:PostTag,
+                    include:{
+                        model:Post,
+                        include:{
+                            model:Profile
+                        }
+                    }
+                }
+            })
+
+            
+
+            // res.send(data)
+
+            res.render('Tag', {data})
+            
+            
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async deletePost(req,res){
+        try {
+            let {id} = req.params
+
+            // let data = await Profile.findByPk(+id, {
+            //     include:{
+            //         model: Post,
+            //         include:{
+            //             model:PostTag,
+            //             include:{
+            //                 model:Tag
+            //             }
+            //         }
+            //     }
+            // })
+
+            await PostTag.destroy({ where: { PostId: +id } });
+
+            // Hapus Post setelah entri terkait di PostTags dihapus
+             await Post.destroy({ where: { id: +id } });
+
+
+            
+             res.redirect(`/Post`);
+            
+        } catch (error) {
+            res.send(error)
+            console.log(error);
+            
+        }
+    }
 }
 
 module.exports = Controller
