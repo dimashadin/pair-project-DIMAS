@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: black;">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FakeBook</title>
   <%- include('./components/script') %>
 </head>
-
 <body>
- 
- 
-<h1>Post</h1>
+  <h1 style="display: flex; justify-content: center; font-size: 40px;">INI POST</h1>
 
-  <div>
-    
-  </div>
-   
+  <!-- Menampilkan error jika ada -->
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div style="color: red;">
+      <p><%= error %></p>
+    </div>
+  <% } %>
 
+  <!-- Konten halaman lainnya -->
 </body>
-
 </html>

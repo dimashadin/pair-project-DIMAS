@@ -1,9 +1,9 @@
 const express = require('express')
 const Controller = require('../controllers/controller')
-const admin = require('../helper/index')
 const router = express.Router()
 
 router.get('/', Controller.showHome)
+
 
 
 router.get('/login', Controller.loginForm)
@@ -19,7 +19,7 @@ router.use((req, res, next) => {       //global bisa di pakai di semua asalkan d
     // console.log('Time:', Date.now())
     // console.log(req.session, '<<<<<<<<<<<<<<<<<<<<<<<< req sesion console');
     if (!req.session.UserId) {
-        const error = `logiin heula bang`
+        const error = `You have to login first`
         res.redirect(`/login?error=${error}`)
     } else {
         next()
@@ -48,14 +48,13 @@ router.use((req, res, next) => {       //global bisa di pakai di semua asalkan d
     //     next()
     // }
     
+    router.get('/Post', Controller.showAllPost)
     router.get('/addFormPost',Controller.addFormPostRead)
 router.post('/addFormPost',Controller.addFormPost)
 
 router.get('/tag/:id',Controller.showTag)
-router.get('/Post', Controller.showAllPost)
-// router.get('/postTags', admin('Admin'), Controller.PostTagsShow);
 
-// router.get('/postTags',Controller.PostTagsShow)
+
 
 
 
