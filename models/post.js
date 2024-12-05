@@ -64,10 +64,27 @@ module.exports = (sequelize, DataTypes) => {
           msg:`ProfileId is required`
         }
       }
+    },
+    likes:{
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:`Likes is required`
+        },
+        notEmpty:{
+          msg:`Likes is required`
+        }
+      }
     }
   }, {
     sequelize,
     modelName: 'Post',
+    hooks:{
+      beforeValidate :(value)=>{
+        value.likes = 0
+      }
+    }
   });
   return Post;
 };
