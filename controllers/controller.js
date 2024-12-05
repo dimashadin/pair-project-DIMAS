@@ -1,127 +1,109 @@
-let {Post, PostTag, Profile, Tag, User} = require('../models')
+let { Post, PostTag, Profile, Tag, User } = require("../models");
 
 class Controller {
-
-    static async showHome(req, res){
-        try {
-            res.render ('GettingStarted')
-        } catch (error) {
-            res.send(error)
-        }
+  static async showHome(req, res) {
+    try {
+      res.render("GettingStarted");
+    } catch (error) {
+      res.send(error);
     }
+  }
 
-    static async showAllPost(req, res){
-        try {
+  static async showAllPost(req, res) {
+    try {
+    
 
-            let data = await Profile.findAll({
-                include:{
-                    model: Post,
-                    include:{
-                        model:PostTag,
-                        include:{
-                            model:Tag
-                        }
-                    }
-                }
-            })
-
-            // res.send(data)
-            
-            res.render('Post', {data})
-            
-        } catch (error) {
-            // console.log(error);
-            res.send(error)
+      let data = await Post.findAll({
+        include: {
+          model: Profile
         }
+      });
+
+
+      res.render('Post', {data})
+    } catch (error) {
+      // console.log(error);
+      res.send(error);
     }
+  }
 
-    static async showProfile(req,res){
-        try {
-            let {id} = req.params
+  static async showProfile(req, res) {
+    try {
+      let { id } = req.params;
 
-            let data = await Profile.findByPk(+id, {
-                include:{
-                    model: Post,
-                    include:{
-                        model:PostTag,
-                        include:{
-                            model:Tag
-                        }
-                    }
-                }
-            })
-            // res.send(data)
-            // console.log(data);
-            
-            
+      let data = await Profile.findByPk(+id, {
+        include: {
+          model: Post,
+          include: {
+            model: PostTag,
+            include: {
+              model: Tag,
+            },
+          },
+        },
+      });
+      // res.send(data)
+      // console.log(data);
 
-            res.render('ProfileById', {data})
-        } catch (error) {
-            console.log(error);
-            res.send(error)
-        }
+      res.render("ProfileById", { data });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
     }
+  }
 
-    static async showTag(req,res){
-        try {
-            let {id} = req.params 
+  static async showTag(req, res) {
+    try {
+      let { id } = req.params;
 
-            let data = await Tag.findByPk(+id, {
-                include:{
-                    model:PostTag,
-                    include:{
-                        model:Post,
-                        include:{
-                            model:Profile
-                        }
-                    }
-                }
-            })
+      let data = await Tag.findByPk(+id, {
+        include: {
+          model: PostTag,
+          include: {
+            model: Post,
+            include: {
+              model: Profile,
+            },
+          },
+        },
+      });
 
-            
+      // res.send(data)
 
-            // res.send(data)
-
-            res.render('Tag', {data})
-            
-            
-        } catch (error) {
-            console.log(error);
-            res.send(error)
-        }
+      res.render("Tag", { data });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
     }
+  }
 
-    static async deletePost(req,res){
-        try {
-            let {id} = req.params
+  static async deletePost(req, res) {
+    try {
+      let { id } = req.params;
 
-            // let data = await Profile.findByPk(+id, {
-            //     include:{
-            //         model: Post,
-            //         include:{
-            //             model:PostTag,
-            //             include:{
-            //                 model:Tag
-            //             }
-            //         }
-            //     }
-            // })
+      // let data = await Profile.findByPk(+id, {
+      //     include:{
+      //         model: Post,
+      //         include:{
+      //             model:PostTag,
+      //             include:{
+      //                 model:Tag
+      //             }
+      //         }
+      //     }
+      // })
 
-            await PostTag.destroy({ where: { PostId: +id } });
+      await PostTag.destroy({ where: { PostId: +id } });
 
-            // Hapus Post setelah entri terkait di PostTags dihapus
-             await Post.destroy({ where: { id: +id } });
+      // Hapus Post setelah entri terkait di PostTags dihapus
+      await Post.destroy({ where: { id: +id } });
 
-
-            
-             res.redirect(`/Post`);
-            
-        } catch (error) {
-            res.send(error)
-            console.log(error);
-            
-        }
+      res.redirect(`/Post`);
+    } catch (error) {
+      res.send(error);
+      console.log(error);
     }
+  }
 }
 
-module.exports = Controller
+module.exports = Controller;
