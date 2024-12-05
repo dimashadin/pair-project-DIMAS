@@ -47,7 +47,7 @@ class Controller {
                 if (isValidPassword) {
                     // Login berhasil
                     req.session.UserId = user.id
-                    req.session.UserRole = user.role;
+                   
                     console.log(`Logged in UserRole: ${req.session.UserRole}`);
                     res.redirect('/post');
                 } else {
@@ -134,7 +134,7 @@ class Controller {
 
     static async showAllPost(req, res) {
         try {
-            const { RoleError } = req.query
+           
             let data = await Profile.findAll({
                 include: {
                     model: Post,
@@ -147,12 +147,9 @@ class Controller {
                 }
             })
 
-            res.send(RoleError);
-            
+        
 
-            // res.render('Post', { data, RoleError });
-
-            // res.render('Post', { data })
+            res.render('Post', { data })
 
         } catch (error) {
             console.log(error);

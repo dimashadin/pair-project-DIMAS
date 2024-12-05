@@ -4,13 +4,15 @@ const admin = require('../helper/index')
 const router = express.Router()
 
 router.get('/', Controller.showHome)
+
+
 router.get('/login', Controller.loginForm)
 router.post('/login', Controller.loginFormPost)
-router.get('/logout', Controller.logOut)
 
 router.get('/register', Controller.RegisterForm)
 router.post('/register', Controller.RegisterFormPost)
 
+router.get('/logout', Controller.logOut)
 
 
 router.use((req, res, next) => {       //global bisa di pakai di semua asalkan di taruh di paling atas
@@ -51,7 +53,7 @@ router.post('/addFormPost',Controller.addFormPost)
 
 router.get('/tag/:id',Controller.showTag)
 router.get('/Post', Controller.showAllPost)
-router.get('/postTags', admin('Admin'), Controller.PostTagsShow);
+// router.get('/postTags', admin('Admin'), Controller.PostTagsShow);
 
 // router.get('/postTags',Controller.PostTagsShow)
 
