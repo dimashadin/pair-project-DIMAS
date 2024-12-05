@@ -7,11 +7,14 @@
     <%- include('./components/script') %>
 </head>
 <body>
-    <%- include('./components/navbar') %>
+  <%- include('./components/navbar') %>
 
-    <div style="display: flex; justify-content: center; font-size: 50px;">
+
+    <div style="display: flex; justify-content: center; font-size: 50px; ">
       <p> <%= data.username %></p>
-  </div>
+    </div>
+    
+
 
     <div style="display:flex; justify-content: center;">
 
@@ -20,7 +23,7 @@
             <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
               
               
-              <div class="card  shadow-xl border border-orange-200" style="margin-top: 25px;width: 550px; height: 750px;background-color: rgb(38, 38, 38); ">
+              <div class="card  shadow-xl border border-orange-200" style="margin-top: 25px;width: 550px; height: 800px;background-color: rgb(38, 38, 38); ">
         
         
         
@@ -52,6 +55,7 @@
                       <p style="margin-top: 10px; font-family: 'Times New Roman', Times, serif;"><%= post.description %></p>
                       
                       <a href="/Profile/<%= post.id %>/delete"><button class="btn btn-outline btn-error">Delete Post</button></a>
+                      <a href="/Profile/<%= post.id %>/edit"><button class="btn btn-outline btn-primary">Edit Post</button></a>
                       <% post.PostTags.forEach(conjunct => { %>
                         
                         <div class="card-actions justify-end">
