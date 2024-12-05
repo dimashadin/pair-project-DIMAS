@@ -119,6 +119,16 @@ class Controller {
                     }
                 }
             })
+
+
+            //menggunakan helper date
+            data.forEach(user => {
+                user.Posts.forEach(post => {
+                    post.formattedDate = formatDate(post.createdAt);
+                });
+            });
+
+
             res.render('Post', { data,});
 
         } catch (error) {

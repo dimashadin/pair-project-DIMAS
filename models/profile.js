@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       Profile.belongsTo(models.User, { foreignKey: 'UserId' });
       Profile.hasMany(models.Post)
     }
+
+    
   }
   Profile.init({
     username: {
@@ -83,7 +85,10 @@ module.exports = (sequelize, DataTypes) => {
 
         
       }
-    }
+    },
+
+
+    
   });
   return Profile;
 };
