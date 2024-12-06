@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+var bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
     /**
@@ -14,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       Profile.belongsTo(models.User) 
       Profile.hasMany(models.Post)
     }
+
+    
   }
   Profile.init({
     username: {
@@ -66,19 +69,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        notNull:{
-          msg:`UserId is required`
-        },
-        notEmpty:{
-          msg:`UserId is required`
-        }
+      references:{
+        model:"Users",
+        key:'id'
       }
     }
   }, {
     sequelize,
     modelName: 'Profile',
+    hooks:{
+      beforeCreate(instance,options){
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(instance.password, salt);
+        instance.password= hash
+
+        
+      }
+    },
+
+
+    
   });
   return Profile;
 };
