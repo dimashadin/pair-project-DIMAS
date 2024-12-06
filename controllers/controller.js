@@ -1,7 +1,9 @@
 let { Post, PostTag, Profile, Tag, User } = require('../models')
 var bcrypt = require('bcryptjs');
-let {formatDate} = require('../helper/dateHelper')
+
 class Controller {
+
+
     static async showHome(req, res) {
         try {
             res.render('GettingStarted')
@@ -9,6 +11,8 @@ class Controller {
             res.send(error)
         }
     }
+
+
     static async loginForm(req, res) {
         try {
 
@@ -23,6 +27,8 @@ class Controller {
 
         }
     }
+
+
     static async loginFormPost(req, res) {
 
         try {
@@ -63,7 +69,7 @@ class Controller {
                 errors = errors.split(',');
             }
 
-          
+
             res.render('registerForm', { errors })
 
         } catch (error) {
@@ -108,76 +114,142 @@ class Controller {
     static async showAllPost(req, res) {
         try {
 
-            let data = await Profile.findAll({
+
+            let data = await Post.findAll({
                 include: {
-                    model: Post,
-                    include: {
-                        model: PostTag,
-                        include: {
-                            model: Tag
-                        }
-                    }
+                    model: Profile
                 }
-            })
-
-
-            //menggunakan helper date
-            data.forEach(user => {
-                user.Posts.forEach(post => {
-                    post.formattedDate = formatDate(post.createdAt);
-                });
             });
 
 
-            res.render('Post', { data,});
-
+            res.render('Post', { data })
         } catch (error) {
-            res.send(error)
+            // console.log(error);
+            res.send(error);
         }
     }
 
 
-    static async addFormPostRead(req, res) {
+
+    static async addForm(req, res) {
         try {
-            res.render('addFormPost')
+            let data = await Post.findAll({
+                include: {
+                    model: Profile
+                }
+            })
+            // res.send(data)
+            res.render('formAddPost', { data })
+
         } catch (error) {
             res.send(error)
+            // console.log(error);  
         }
     }
 
-    static async addFormPost(req, res) {
+    static async postAdd(req, res) {
         try {
+            // console.log(req.body);
 
-            const { title, description, imgUrl } = req.body
-            await Post.create({ title, description, imgUrl })
+            await Post.create(req.body)
 
             res.redirect('/Post')
 
+
         } catch (error) {
             res.send(error)
-
+            console.log(error);
 
         }
     }
 
-    static async showTag(req, res) {
+    static async showEditForm(req, res) {
         try {
             let { id } = req.params
+            let data = await Post.findByPk(+id, {
+                include: {
+                    model: Profile
+                }
+            });
+            //   res.send(data)
 
-            let data = await Post.findByPk(id, {
+
+
+            res.render('editForm', { data })
+
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+
+        }
+    }
+
+    static async postEditForm(req, res) {
+        try {
+            // console.log(req.body);
+
+            let { id } = req.params
+
+
+
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+
+    static async showTag(req, res) {
+        try {
+            let { id } = req.params;
+
+            let data = await Tag.findByPk(+id, {
                 include: {
                     model: PostTag,
                     include: {
-                        model: Post
-                    }
-                }
-            })
+                        model: Post,
+                        include: {
+                            model: Profile,
+                        },
+                    },
+                },
+            });
 
+            // res.send(data)
 
-            res.render('tag', { data })
-
+            res.render("Tag", { data });
         } catch (error) {
-            res.send(error)
+            console.log(error);
+            res.send(error);
+        }
+    }
+
+
+    static async deletePost(req, res) {
+        try {
+            let { id } = req.params;
+
+            // let data = await Profile.findByPk(+id, {
+            //     include:{
+            //         model: Post,
+            //         include:{
+            //             model:PostTag,
+            //             include:{
+            //                 model:Tag
+            //             }
+            //         }
+            //     }
+            // })
+
+            await PostTag.destroy({ where: { PostId: +id } });
+
+            // Hapus Post setelah entri terkait di PostTags dihapus
+            await Post.destroy({ where: { id: +id } });
+
+            res.redirect(`/Post`);
+        } catch (error) {
+            res.send(error);
+            console.log(error);
         }
     }
 
@@ -191,6 +263,33 @@ class Controller {
             res.send(error)
         }
     }
+
+
+    static async showProfile(req, res) {
+        try {
+            let { id } = req.params;
+
+            let data = await Profile.findByPk(+id, {
+                include: {
+                    model: Post,
+                    include: {
+                        model: PostTag,
+                        include: {
+                            model: Tag,
+                        },
+                    },
+                },
+            });
+            // res.send(data)
+            // console.log(data);
+
+            res.render("ProfileById", { data });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
+    }
+
 
 
 
