@@ -11,14 +11,16 @@ class Controller {
 
   static async showAllPost(req, res) {
     try {
-    
+    let {title } = req.query
 
-      let data = await Post.findAll({
-        include: {
-          model: Profile
-        }
-      });
+    //   let data = await Post.findAll({
+    //     include: {
+    //       model: Profile
+    //     }
+    //   });
 
+    let data = await Post.getAllPost(title, Profile)
+        // res.send(data)
 
       res.render('Post', {data})
     } catch (error) {
@@ -123,18 +125,29 @@ class Controller {
 
   static async postAdd(req,res){
     try {
-        // console.log(req.body);
-
-        await Post.create(req.body)
-
-        res.redirect('/Post')
-        
-        
-    } catch (error) {
-        res.send(error)
-        console.log(error);
-        
-    }
+        const { title, description, ProfileId } = req.body;
+    
+        // Ambil path file dari multer
+        const imgUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    
+        if (!imgUrl) {
+          throw new Error('Image is required');
+        }
+    
+        // Simpan data ke database
+        await Post.create({
+          title,
+          description,
+          imgUrl, // Simpan path file di kolom imgUrl
+          ProfileId: +ProfileId,
+          likes: 0, // Inisialisasi likes
+        });
+    
+        res.redirect('/Post'); // Redirect ke halaman utama
+      } catch (error) {
+        console.error(error);
+        res.status(500).send(error.message);
+      }
   }
 
   static async showEditForm(req,res){

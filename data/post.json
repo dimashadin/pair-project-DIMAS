@@ -2,35 +2,35 @@
     {
       "title": "Amazing Landscape",
       "description": "A breathtaking view of the mountains during sunrise.",
-      "imgUrl": "https://source.unsplash.com/random/800x600",
+      "imgUrl": "https://s.kaskus.id/images/2014/09/13/6366687_20140913040724.jpg",
       "ProfileId": 2,
       "likes": 10
     },
     {
       "title": "Modern Architecture",
       "description": "An innovative design of a futuristic building.",
-      "imgUrl": "https://source.unsplash.com/random/800x600",
+      "imgUrl": "https://s.kaskus.id/images/2014/09/13/6366687_20140913040724.jpg",
       "ProfileId": 1,
       "likes": 12
     },
     {
       "title": "Delicious Cuisine",
       "description": "A plate of beautifully presented gourmet food.",
-      "imgUrl": "https://source.unsplash.com/random/800x600",
+      "imgUrl": "https://s.kaskus.id/images/2014/09/13/6366687_20140913040724.jpg",
       "ProfileId": 3,
       "likes": 11
     },
     {
       "title": "City Lights",
       "description": "A vibrant cityscape with illuminated skyscrapers at night.",
-      "imgUrl": "https://source.unsplash.com/random/800x600",
+      "imgUrl": "https://s.kaskus.id/images/2014/09/13/6366687_20140913040724.jpg",
       "ProfileId": 4,
       "likes": 20
     },
     {
       "title": "Serene Beach",
       "description": "A peaceful beach with crystal-clear waters and golden sand.",
-      "imgUrl": "https://source.unsplash.com/random/800x600",
+      "imgUrl": "https://s.kaskus.id/images/2014/09/13/6366687_20140913040724.jpg",
       "ProfileId": 5,
       "likes": 19
     }

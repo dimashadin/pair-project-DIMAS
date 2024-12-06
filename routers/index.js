@@ -2,13 +2,18 @@ const express = require('express')
 const Controller = require('../controllers/controller')
 const router = express.Router()
 
+const upload = require('../middlewares/multer');
+
 
 router.get('/', Controller.showHome)
 
 router.get('/Post', Controller.showAllPost)
 
-router.get('/Post/add', Controller.addForm)
-router.post('/Post/add', Controller.postAdd)
+// Rute form tambah post
+router.get('/Post/add', Controller.addForm);
+
+// Rute proses tambah post
+router.post('/Post/add', upload.single('imgUrl'), Controller.postAdd);
 
 router.get ('/Profile/:id', Controller.showProfile)
 
