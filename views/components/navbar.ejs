@@ -1,9 +1,18 @@
 <div class="navbar bg-base-100" style="background-color: black;">
     <div class="navbar-start">
         <a  href="#"><img style="width: 150px;height: 50px;" src="/newLogo.png" alt=""></a>
+
+        <form action="/search" method="GET">
+          <input type="text" name="query" placeholder="Search..." />
+          <button type="submit">Search</button>
+        </form>
       </div>
     <div class="navbar-end" style="margin-right: 25px;">
-     <p>LOGIN</p>
+
+      <div style="margin-right: 20px;">
+        <a href="/login"><p>LOGIN</p></a>
+      </div>
+      <a href="/logout"><p>LOGOUT</p></a>
      
     </div>
     
