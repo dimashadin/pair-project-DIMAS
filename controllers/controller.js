@@ -1,4 +1,4 @@
-let { Post, PostTag, Profile, Tag, User } = require("../models");
+
 
 class Controller {
   static async showHome(req, res) {
@@ -9,48 +9,11 @@ class Controller {
     }
   }
 
-  static async showAllPost(req, res) {
-    try {
-    let {title } = req.query
 
-    //   let data = await Post.findAll({
-    //     include: {
-    //       model: Profile
-    //     }
-    //   });
-
-    let data = await Post.getAllPost(title, Profile)
-        // res.send(data)
-
-      res.render('Post', {data})
-    } catch (error) {
-      // console.log(error);
-      res.send(error);
     }
   }
 
-  static async showProfile(req, res) {
-    try {
-      let { id } = req.params;
 
-      let data = await Profile.findByPk(+id, {
-        include: {
-          model: Post,
-          include: {
-            model: PostTag,
-            include: {
-              model: Tag,
-            },
-          },
-        },
-      });
-      // res.send(data)
-      // console.log(data);
-
-      res.render("ProfileById", { data });
-    } catch (error) {
-      console.log(error);
-      res.send(error);
     }
   }
 
@@ -95,7 +58,7 @@ class Controller {
       //     }
       // })
 
-      await PostTag.destroy({ where: { PostId: +id } });
+
 
       // Hapus Post setelah entri terkait di PostTags dihapus
       await Post.destroy({ where: { id: +id } });
