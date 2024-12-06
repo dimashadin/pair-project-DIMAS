@@ -1,6 +1,7 @@
 'use strict';
 const {
-  Model
+  Model,
+  Op
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
@@ -14,6 +15,34 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.Profile)
       Post.hasMany(models.PostTag)
       
+    }
+
+    static async getAllPost(title, Profile){
+      try {
+        let options = {
+          where: {}, // Default kosong (ambil semua data)
+          include: [
+            {
+              model: Profile, // Sertakan relasi dengan model Profile
+            },
+          ],
+        };
+    
+        // Jika ada pencarian berdasarkan title
+        if (title) {
+          options.where.title = {
+            [Op.iLike]: `%${title}%`, // Pencarian case-insensitive
+          };
+        }
+    
+        // Ambil data dari database
+        let data = await Post.findAll(options);
+    
+        return data;
+        
+      } catch (error) {
+        throw error
+      }
     }
   }
   Post.init({

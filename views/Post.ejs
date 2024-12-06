@@ -12,6 +12,26 @@
 
   <%- include('./components/navbar') %>
 
+    <!-- search bar -->
+    <div>
+      <form action="/Post" method="get">
+          <div  style="display: flex; justify-content: end;margin-right: 15px;margin-top: 10px;">
+              <div class="join">
+                  <div>
+                    <div style="margin-right: 10px; ">
+                      <input class="input input-bordered join-item" placeholder="Search By Title" name="title"/>
+                    </div>
+                  </div>
+              
+                  <div class="indicator" style="margin-left: 10px;">
+                    <button type="submit" class="btn join-item">Search</button>
+                  </div>
+                </div>
+          </div>
+      
+      </form>
+  </div>
+
   <a  href="/Post/add"><button style="margin-left: 20px; margin-top: 15px;" class="btn btn-outline btn-info">ADD NEW POST</button></a>
 
   <div style="display:flex; justify-content: center;">

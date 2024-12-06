@@ -11,14 +11,16 @@ class Controller {
 
   static async showAllPost(req, res) {
     try {
-    
+    let {title } = req.query
 
-      let data = await Post.findAll({
-        include: {
-          model: Profile
-        }
-      });
+    //   let data = await Post.findAll({
+    //     include: {
+    //       model: Profile
+    //     }
+    //   });
 
+    let data = await Post.getAllPost(title, Profile)
+        // res.send(data)
 
       res.render('Post', {data})
     } catch (error) {
